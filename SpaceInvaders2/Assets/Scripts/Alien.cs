@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Alien : MonoBehaviour
 {
     [SerializeField]
     private SpriteRenderer spriteRenderer = null;
@@ -10,11 +10,13 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private Sprite otherSprite = null;
 
-    private static EnemyGrid enemyGrid;
+    [SerializeField]
+    private int pointsToScoreOnDeath = 0;
 
     public float X { get => transform.position.x; }
     public bool IsAlive { get => gameObject.activeSelf; }
-    public static EnemyGrid EnemyGrid { set => enemyGrid = value; }
+    public static AliensGrid EnemyGrid { set => AlienDamageable.EnemyGrid = value; }
+    public int PointsToScoreOnDeath { get => pointsToScoreOnDeath; }
 
     public void MoveAndAnimate(float x, float y)
     {
@@ -24,11 +26,5 @@ public class Enemy : MonoBehaviour
         otherSprite = aux;
 
         transform.position += new Vector3(x, y, 0);
-    }
-
-    public void Die()
-    {
-        enemyGrid.Accelerate();
-        gameObject.SetActive(false);
     }
 }

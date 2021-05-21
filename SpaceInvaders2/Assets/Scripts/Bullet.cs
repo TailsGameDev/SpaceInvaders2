@@ -22,7 +22,7 @@ public class Bullet : MonoBehaviour
         {
             case "damageable":
                 Instantiate(whiteExplosionPrototype, other.transform.position, Quaternion.identity);
-                other.GetComponent<Enemy>().Die();
+                other.GetComponent<Damageable>().Die();
                 Destroy(gameObject);
                 break;
             case "screen_end":
@@ -30,6 +30,7 @@ public class Bullet : MonoBehaviour
                 Instantiate(redExplosionPrototype, transform.position, Quaternion.identity);
                 Destroy(gameObject);
                 break;
+            // TODO: in case bullets collide: destroy player bullet and have a chance to destroy alien bullet
         }
     }
 }
