@@ -29,7 +29,6 @@ public class Bullet : MonoBehaviour
                 Instantiate(redExplosionPrototype, transform.position, Quaternion.identity);
                 Destroy(gameObject);
                 break;
-            // TODO: in case bullets collide: destroy player bullet and have a chance to destroy alien bullet
         }
     }
 }

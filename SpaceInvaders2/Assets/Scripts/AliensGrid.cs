@@ -34,7 +34,7 @@ public class AliensGrid : MonoBehaviour
 
     // Score
     [SerializeField]
-    private UserInterface userInterface = null;
+    private PlayerScore playerScore = null;
 
     private void Awake()
     {
@@ -128,7 +128,7 @@ public class AliensGrid : MonoBehaviour
     {
         foreach (Alien alien in aliens)
         {
-            alien.Reset();
+            alien.DoReset();
         }
 
         speedBonus = 0.0f;
@@ -137,16 +137,25 @@ public class AliensGrid : MonoBehaviour
 
         enabled = true;
     }
+    public void NewReset(int bulletsAllowed = 1)
+    {
+        foreach (Alien alien in aliens)
+        {
+            alien.DoReset();
+        }
+
+        speedBonus = 0.0f;
+
+        bulletInstances = new Bullet[bulletsAllowed];
+    }
 
     public void OnAlienDied(Alien alien)
     {
-        // TODO: make aliens stop for a moment
-
         speedBonus += speedBonusPerKill;
 
         shootersList.Remove(alien);
 
-        userInterface.OnPointsScored(alien.PointsToScoreOnDeath);
+        playerScore.ScorePoints(alien.PointsToScoreOnDeath);
 
         bool isThereAnAlienAlive = false;
         foreach (Alien a in aliens)
@@ -161,6 +170,7 @@ public class AliensGrid : MonoBehaviour
         if (!isThereAnAlienAlive)
         {
             ResetAndEnable(bulletsAllowed: bulletInstances.Length + 1);
+            BarrierPiece.EnableAllPieces();
         }
     }
 }

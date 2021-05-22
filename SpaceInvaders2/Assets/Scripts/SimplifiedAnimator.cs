@@ -18,8 +18,8 @@ public class SimplifiedAnimator : MonoBehaviour
     {
         if (Time.time > timeToChangeSprite)
         {
+            // Set sprite then update index
             spriteRenderer.sprite = sprites[spriteIndex];
-
             spriteIndex = (spriteIndex + 1) % sprites.Length;
 
             timeToChangeSprite = Time.time + delayToChangeSprite;

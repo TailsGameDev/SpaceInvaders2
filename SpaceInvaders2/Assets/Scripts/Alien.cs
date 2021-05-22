@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Alien : MonoBehaviour
 {
@@ -35,7 +33,7 @@ public class Alien : MonoBehaviour
         transform.position += new Vector3(x, y, 0);
     }
 
-    public void Reset()
+    public void DoReset()
     {
         transform.position = originalPosition;
 

@@ -1,69 +1,45 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerDamageable : Damageable
 {
     [SerializeField]
-    private AliensGrid aliensGrid = null;
-
-    [SerializeField]
-    private SpriteRenderer spriteRenderer = null;
-
-    [SerializeField]
-    private Player player = null;
-
-    [SerializeField]
-    private float timeDead = 0.0f;
-    private WaitForSecondsRealtime waitWhileDead;
-
-    [SerializeField]
+    private int initialLifesAmount = 0;
     private int lifesAmount = 0;
+    
     [SerializeField]
     private UserInterface userInterface = null;
 
-    public int LifesAmount { set => lifesAmount = value; }
+    private bool isDead;
+
+    public int LifesAmount { get => lifesAmount; }
+    public bool IsDead { get => isDead; set => isDead = value; }
 
     private void Awake()
     {
-        waitWhileDead = new WaitForSecondsRealtime(timeDead);
-
-        userInterface.ShowPlayerLifes(lifesAmount);
-
         BarrierPiece.PlayerDamageable = this;
     }
-
+    public void ResetLifes()
+    {
+        lifesAmount = initialLifesAmount;
+    }
     public override void Die()
     {
-        StartCoroutine(DieCoroutine());
-    }
-
-    private IEnumerator DieCoroutine()
-    {
-        aliensGrid.enabled = false;
-        spriteRenderer.enabled = false;
-        player.enabled = false;
-
-        yield return waitWhileDead;
-
+        // NOTE: GameFSM.cs checks this.isDead on 'Update()' so it can control the game flow
+        isDead = true;
+        // NOTE: By the way, when GameFSM notices isDead==true,
+        // it also updates the userInterface for lifesAmount after a little time interval (2 seconds)
+        // together with other userInterface elements
         lifesAmount--;
-        userInterface.ShowPlayerLifes(lifesAmount);
-
-        if (lifesAmount <= 0)
-        {
-            userInterface.OnGameOver();
-        }
-        else
-        {
-            player.enabled = true;
-            spriteRenderer.enabled = true;
-            aliensGrid.enabled = true;
-        }
     }
-
     public void GainALife()
     {
         lifesAmount++;
         userInterface.ShowPlayerLifes(lifesAmount);
+    }
+    public void LoseAllLifesAndDie()
+    {
+        // Let's give the player exactly 1 life, so it can Die and lose it. This way after dying zero lifes remain.
+        lifesAmount = 1;
+        Die();
     }
 }
