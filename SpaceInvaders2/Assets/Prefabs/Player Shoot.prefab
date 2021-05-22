@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -8140071428053162511}
   m_Layer: 0
   m_Name: Player Shoot
-  m_TagString: Untagged
+  m_TagString: bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,7 +97,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.3
-  limitY: 4.5
   redExplosionPrototype: {fileID: 5019236015572794878, guid: 18119cdc11c425d408164b50390721c1,
     type: 3}
   whiteExplosionPrototype: {fileID: 5019236015572794878, guid: cae3d8174ed508543a3fdc6ae9022f2e,
@@ -147,5 +146,5 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0

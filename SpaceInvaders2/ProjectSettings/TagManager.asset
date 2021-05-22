@@ -6,6 +6,7 @@ TagManager:
   tags:
   - damageable
   - screen_end
+  - bullet
   layers:
   - Default
   - TransparentFX

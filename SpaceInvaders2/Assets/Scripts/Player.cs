@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
 
     private static Bullet currentBullet;
 
+    private float y, z;
+
     private Transform Transform 
     {
         get 
@@ -34,7 +36,7 @@ public class Player : MonoBehaviour
 
         if (Mathf.Abs(newX) < rightLimit.position.x)
         {
-            Transform.position = new Vector3(newX, Transform.position.y, Transform.position.z);
+            Transform.position = new Vector3(newX, y, z);
         }
     }
 
@@ -44,5 +46,17 @@ public class Player : MonoBehaviour
         {
             currentBullet = Instantiate(bulletPrototype, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
         }
+    }
+
+    public void ResetPositionAndEnable()
+    {
+        y = Transform.position.y;
+        z = Transform.position.z;
+
+        Transform.position = new Vector3(-rightLimit.position.x, y, z);
+
+        enabled = true;
+
+        GetComponent<SpriteRenderer>().enabled = true;
     }
 }

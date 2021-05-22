@@ -5,13 +5,13 @@ public class AlienDamageable : Damageable
     [SerializeField]
     private Alien alien = null;
 
-    private static AliensGrid enemyGrid;
+    private static AliensGrid aliensGrid;
 
-    public static AliensGrid EnemyGrid { set => enemyGrid = value; }
+    public static AliensGrid AliensGrid { set => aliensGrid = value; }
 
     public override void Die()
     {
-        enemyGrid.OnAlienDied(alien);
         gameObject.SetActive(false);
+        aliensGrid.OnAlienDied(alien);
     }
 }

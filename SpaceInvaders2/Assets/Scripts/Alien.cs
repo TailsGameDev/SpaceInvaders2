@@ -13,10 +13,17 @@ public class Alien : MonoBehaviour
     [SerializeField]
     private int pointsToScoreOnDeath = 0;
 
+    private Vector3 originalPosition;
+
     public float X { get => transform.position.x; }
     public bool IsAlive { get => gameObject.activeSelf; }
-    public static AliensGrid EnemyGrid { set => AlienDamageable.EnemyGrid = value; }
+    public static AliensGrid AlienGrid { set => AlienDamageable.AliensGrid = value; }
     public int PointsToScoreOnDeath { get => pointsToScoreOnDeath; }
+
+    public void MemorizeOriginalPosition()
+    {
+        this.originalPosition = transform.position;
+    }
 
     public void MoveAndAnimate(float x, float y)
     {
@@ -26,5 +33,12 @@ public class Alien : MonoBehaviour
         otherSprite = aux;
 
         transform.position += new Vector3(x, y, 0);
+    }
+
+    public void Reset()
+    {
+        transform.position = originalPosition;
+
+        gameObject.SetActive(true);
     }
 }

@@ -26,18 +26,26 @@ public class AliensGrid : MonoBehaviour
     // Shooting
     [SerializeField]
     private Bullet alienBulletPrototype = null;
+    [SerializeField]
+    private float minCooldown = 0.0f;
     private List<Alien> shootersList;
-    private Bullet bulletInstance = null;
+    private Bullet[] bulletInstances = null;
+    private float timeAfterMinCooldown;
 
     // Score
     [SerializeField]
     private UserInterface userInterface = null;
-    private int score;
-    private int highestScore;
 
     private void Awake()
     {
-        Alien.EnemyGrid = this;
+        Alien.AlienGrid = this;
+
+        foreach (Alien alien in aliens)
+        {
+            alien.MemorizeOriginalPosition();
+        }
+
+        enabled = false;
     }
 
     private void FixedUpdate()
@@ -96,15 +104,38 @@ public class AliensGrid : MonoBehaviour
             timeToMove = Time.time + delayToMove - speedBonus;
         }
 
-        if (bulletInstance == null)
-        {
-            int shooterIndex = Random.Range(0, shootersList.Count);
-            Alien shooter = shootersList[shooterIndex];
+        // It's too weird when there is just a single alien ship if it can shoot like 3 bullets or more, so let's
+        // limit the shooting when there is too few aliens on shooterList
+        int len = Mathf.Min(bulletInstances.Length, shootersList.Count);
 
-            // Shoot
-            bulletInstance = Instantiate(alienBulletPrototype, shooter.transform.position - (Vector3.up * 0.8f),
-                Quaternion.LookRotation(forward: Vector3.forward, upwards: -Vector3.up));
+        for (int b = 0; b < len; b++)
+        {
+            if (bulletInstances[b] == null && Time.time > timeAfterMinCooldown)
+            {
+                int shooterIndex = Random.Range(0, shootersList.Count);
+                Alien shooter = shootersList[shooterIndex];
+
+                // Shoot
+                bulletInstances[b] = Instantiate(alienBulletPrototype, shooter.transform.position - (Vector3.up * 0.8f),
+                    Quaternion.LookRotation(forward: Vector3.forward, upwards: -Vector3.up));
+
+                timeAfterMinCooldown = Time.time + minCooldown;
+            }
         }
+    }
+
+    public void ResetAndEnable(int bulletsAllowed = 1)
+    {
+        foreach (Alien alien in aliens)
+        {
+            alien.Reset();
+        }
+
+        speedBonus = 0.0f;
+
+        bulletInstances = new Bullet[bulletsAllowed];
+
+        enabled = true;
     }
 
     public void OnAlienDied(Alien alien)
@@ -116,5 +147,20 @@ public class AliensGrid : MonoBehaviour
         shootersList.Remove(alien);
 
         userInterface.OnPointsScored(alien.PointsToScoreOnDeath);
+
+        bool isThereAnAlienAlive = false;
+        foreach (Alien a in aliens)
+        {
+            if (a.IsAlive)
+            {
+                isThereAnAlienAlive = true;
+                break;
+            }
+        }
+
+        if (!isThereAnAlienAlive)
+        {
+            ResetAndEnable(bulletsAllowed: bulletInstances.Length + 1);
+        }
     }
 }

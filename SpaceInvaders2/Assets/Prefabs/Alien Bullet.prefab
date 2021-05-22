@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 8260719068599002884}
   - component: {fileID: 3270083964680272010}
   m_Layer: 0
-  m_Name: Enemy Bullet
-  m_TagString: Untagged
+  m_Name: Alien Bullet
+  m_TagString: bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b29a207865a999a4b95d7e7ffc438d54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.125
+  speed: 0.1
   redExplosionPrototype: {fileID: 5019236015572794878, guid: 18119cdc11c425d408164b50390721c1,
     type: 3}
   whiteExplosionPrototype: {fileID: 5019236015572794878, guid: cae3d8174ed508543a3fdc6ae9022f2e,

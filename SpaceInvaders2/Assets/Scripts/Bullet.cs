@@ -26,7 +26,6 @@ public class Bullet : MonoBehaviour
                 Destroy(gameObject);
                 break;
             case "screen_end":
-                Player.CurrentBullet = null;
                 Instantiate(redExplosionPrototype, transform.position, Quaternion.identity);
                 Destroy(gameObject);
                 break;

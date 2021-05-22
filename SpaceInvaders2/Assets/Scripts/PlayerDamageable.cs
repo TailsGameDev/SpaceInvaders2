@@ -22,11 +22,15 @@ public class PlayerDamageable : Damageable
     [SerializeField]
     private UserInterface userInterface = null;
 
+    public int LifesAmount { set => lifesAmount = value; }
+
     private void Awake()
     {
         waitWhileDead = new WaitForSecondsRealtime(timeDead);
 
         userInterface.ShowPlayerLifes(lifesAmount);
+
+        BarrierPiece.PlayerDamageable = this;
     }
 
     public override void Die()
@@ -36,19 +40,30 @@ public class PlayerDamageable : Damageable
 
     private IEnumerator DieCoroutine()
     {
-        // Time.timeScale = 0.0f;
         aliensGrid.enabled = false;
         spriteRenderer.enabled = false;
         player.enabled = false;
 
         yield return waitWhileDead;
 
-        player.enabled = true;
-        spriteRenderer.enabled = true;
-        aliensGrid.enabled = true;
-        // Time.timeScale = 1.0f;
-
         lifesAmount--;
+        userInterface.ShowPlayerLifes(lifesAmount);
+
+        if (lifesAmount <= 0)
+        {
+            userInterface.OnGameOver();
+        }
+        else
+        {
+            player.enabled = true;
+            spriteRenderer.enabled = true;
+            aliensGrid.enabled = true;
+        }
+    }
+
+    public void GainALife()
+    {
+        lifesAmount++;
         userInterface.ShowPlayerLifes(lifesAmount);
     }
 }
