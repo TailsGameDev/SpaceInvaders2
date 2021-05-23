@@ -42,6 +42,8 @@ public class GameFSM : MonoBehaviour
         Cursor.visible = false;
 
         score.LoadHighestScoreThenDislpayIt();
+
+        UISkinHUD.ScoreReference = score;
     }
 
     private void Update()
@@ -117,11 +119,12 @@ public class GameFSM : MonoBehaviour
                     PlayerSkinsUser.SetAllPlayerSkinsUserColor(uiSkinsMenu.GetPlayerColor());
                     barrierRenderers.SetAllBarriersColor(uiSkinsMenu.GetBarrierColor());
 
-                    // Enable/Reset game fundamental elements
+                    // Enable or Reset core game elements
                     BarrierPiece.EnableAllPieces();
                     aliensGrid.DoReset();
                     alienBonusShip.enabled = true;
                     player.ResetPositionAndShotsCounter();
+
                     mainMenuAndHud.HideMenu();
                     break;
                 case GameState.ACTION:

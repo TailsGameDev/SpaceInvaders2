@@ -20,10 +20,10 @@ public class UISkinsMenu : MonoBehaviour
 
     public Color GetBarrierColor()
     {
-        return barrierSkinsCarousel.GetCurrentColor();
+        return barrierSkinsCarousel.GetLastValidColorSelected();
     }
     public Color GetPlayerColor()
     {
-        return playerSkinsCarousel.GetCurrentColor();
+        return playerSkinsCarousel.GetLastValidColorSelected();
     }
 }

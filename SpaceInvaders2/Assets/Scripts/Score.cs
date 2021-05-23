@@ -12,7 +12,9 @@ public class Score : MonoBehaviour
     private int points;
     private int highestScore;
     private const string PLAYER_PREFS_KEY = "HIGHEST_SCORE";
-    
+
+    public int HighestScore { get => highestScore; }
+
     public void LoadHighestScoreThenDislpayIt()
     {
         highestScore = PlayerPrefs.GetInt(PLAYER_PREFS_KEY);
