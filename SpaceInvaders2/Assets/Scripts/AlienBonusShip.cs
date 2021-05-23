@@ -29,6 +29,9 @@ public class AlienBonusShip : Damageable
     [SerializeField]
     private int pointsToScoreOnDeath = 0;
 
+    [SerializeField]
+    private AudioSource audioSource = null;
+
     private void OnEnable()
     {
         this.timeToSpawn = CalculateTimeToSpawn();
@@ -41,6 +44,15 @@ public class AlienBonusShip : Damageable
     {
         spriteRenderer.enabled = enable;
         col.enabled = enable;
+        
+        if (enable)
+        {
+            audioSource.Play();
+        }
+        else
+        {
+            audioSource.Stop();
+        }
     }
 
     private void FixedUpdate()

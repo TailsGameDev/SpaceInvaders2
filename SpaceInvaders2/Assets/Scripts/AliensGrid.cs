@@ -36,6 +36,18 @@ public class AliensGrid : MonoBehaviour
     [SerializeField]
     private Score score = null;
 
+    [Header("Sounds")]
+    [SerializeField]
+    private AudioSource stepsAudioSource = null;
+    [SerializeField]
+    private AudioClip[] stepsAudioClips = null;
+    private int stepSoundIndex;
+
+    [SerializeField]
+    private AudioSource explosionsAudioSource = null;
+    [SerializeField]
+    private AudioClip[] explosionAudioClips = null;
+
     private void Awake()
     {
         Alien.AlienGrid = this;
@@ -52,6 +64,8 @@ public class AliensGrid : MonoBehaviour
     {
         if (Time.time >= timeToMove)
         {
+            timeToMove = Time.time + delayToMove - speedBonus;
+
             bool reachedLimit = false;
 
             float yMove;
@@ -101,8 +115,9 @@ public class AliensGrid : MonoBehaviour
                 shouldGoDown = true;
                 moveHorizontalDistance = -moveHorizontalDistance;
             }
-            
-            timeToMove = Time.time + delayToMove - speedBonus;
+
+            stepsAudioSource.PlayOneShot(stepsAudioClips[stepSoundIndex]);
+            stepSoundIndex = (stepSoundIndex + 1) % stepsAudioClips.Length;
         }
 
         // It's too weird when there is just a single alien ship if it can shoot like 3 bullets or more, so let's
@@ -172,6 +187,8 @@ public class AliensGrid : MonoBehaviour
             ResetAndEnable(bulletsAllowed: bulletInstances.Length + 1);
             BarrierPiece.EnableAllPieces();
         }
+
+        explosionsAudioSource.PlayOneShot(explosionAudioClips[Random.Range(0, explosionAudioClips.Length)]);
     }
 
     public Alien GetClosestShooterAlienOrGetNull(Vector3 referencePosition)

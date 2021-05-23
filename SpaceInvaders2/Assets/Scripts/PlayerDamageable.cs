@@ -9,6 +9,9 @@ public class PlayerDamageable : Damageable
     [SerializeField]
     private MainMenuAndHUD mainMenuAndHUD = null;
 
+    [SerializeField]
+    private AudioSource audioSource = null;
+
     private bool isDead;
 
     public int LifesAmount { get => lifesAmount; }
@@ -32,6 +35,8 @@ public class PlayerDamageable : Damageable
             // it also updates the userInterface for lifesAmount after a little time interval (2 seconds)
             // together with other userInterface elements
             lifesAmount--;
+
+            audioSource.Play();
         }
         else
         {
