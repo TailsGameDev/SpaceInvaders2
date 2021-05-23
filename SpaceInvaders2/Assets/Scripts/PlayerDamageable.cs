@@ -16,7 +16,7 @@ public class PlayerDamageable : Damageable
 
     private void Awake()
     {
-        BarrierPiece.PlayerDamageable = this;
+        EndGameCollider.PlayerDamageable = this;
     }
     public void ResetLifes()
     {

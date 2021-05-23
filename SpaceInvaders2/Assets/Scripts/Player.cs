@@ -83,12 +83,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void ResetPosition()
+    public void ResetPositionAndShotsCounter()
     {
         y = transform.position.y;
         z = transform.position.z;
 
         transform.position = new Vector3(-rightLimit.position.x, y, z);
+
+        this.regularShotsCounter = 0;
     }
     public void ResetLifes()
     {

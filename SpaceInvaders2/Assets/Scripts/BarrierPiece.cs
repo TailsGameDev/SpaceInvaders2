@@ -9,9 +9,6 @@ public class BarrierPiece : MonoBehaviour
     private Collider2D col = null;
 
     private static List<BarrierPiece> allBarrierPieces = new List<BarrierPiece>();
-    private static PlayerDamageable playerDamageable;
-
-    public static PlayerDamageable PlayerDamageable { set => playerDamageable = value; }
 
     private void Awake()
     {
@@ -26,13 +23,6 @@ public class BarrierPiece : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.tag == "damageable")
-        {
-            playerDamageable.LoseAllLifesAndDie();
-        }
-    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "bullet" && other.gameObject.activeInHierarchy)

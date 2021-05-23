@@ -33,6 +33,8 @@ public class GameFSM : MonoBehaviour
     private void Awake()
     {
         player.ResetLifes();
+
+        Cursor.visible = false;
     }
 
     private void Update()
@@ -96,7 +98,7 @@ public class GameFSM : MonoBehaviour
                     BarrierPiece.EnableAllPieces();
                     aliensGrid.NewReset();
                     alienBonusShip.enabled = true;
-                    player.ResetPosition();
+                    player.ResetPositionAndShotsCounter();
                     userInterface.HideMenu();
                     break;
                 case GameState.ACTION:
