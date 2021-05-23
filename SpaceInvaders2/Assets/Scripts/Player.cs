@@ -2,12 +2,8 @@
 
 public class Player : MonoBehaviour
 {
-    // Movement
     [SerializeField]
-    private float speed = 0.0f;
-    [SerializeField]
-    private Transform rightLimit = null;
-    private float y, z;
+    private PlayerMovement playerMovement = null;
 
     // Shooting
     [SerializeField]
@@ -37,24 +33,9 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        // It's important to let this script active and enable at beggining, so it can set y and x as soon as possible
-        this.enabled = false;
-        y = transform.position.y;
-        z = transform.position.z;
-
         PursuerBullet.Aim = aim.gameObject;
     }
 
-    // Movement logic
-    private void FixedUpdate()
-    {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float newX = transform.position.x + (horizontal * speed);
-        if (Mathf.Abs(newX) < rightLimit.position.x)
-        {
-            transform.position = new Vector3(newX, y, z);
-        }
-    }
     // Shoot logic
     private void Update()
     {
@@ -90,7 +71,7 @@ public class Player : MonoBehaviour
 
     public void ResetPositionAndShotsCounter()
     {
-        transform.position = new Vector3(-rightLimit.position.x, y, z);
+        playerMovement.ResetPosition();
 
         this.regularShotsCounter = 0;
     }
@@ -102,12 +83,14 @@ public class Player : MonoBehaviour
     public void GetReadyForAction()
     {
         enabled = true;
+        playerMovement.enabled = true;
         GetComponent<SpriteRenderer>().enabled = true;
         playerDamageable.IsDead = false;
     }
     public void BehaveAsDead()
     {
         enabled = false;
+        playerMovement.enabled = false;
         GetComponent<SpriteRenderer>().enabled = false;
     }
 }

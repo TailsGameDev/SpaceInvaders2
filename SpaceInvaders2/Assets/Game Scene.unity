@@ -5911,6 +5911,7 @@ GameObject:
   - component: {fileID: 995515163}
   - component: {fileID: 995515162}
   - component: {fileID: 995515169}
+  - component: {fileID: 995515172}
   - component: {fileID: 995515164}
   - component: {fileID: 995515166}
   - component: {fileID: 995515167}
@@ -6002,8 +6003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44fa2a931d3421d4db02996a8deae127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.06
-  rightLimit: {fileID: 1339325834}
+  playerMovement: {fileID: 995515172}
   bulletPrototype: {fileID: 26404718876168202, guid: dba06024a5950324e84ddc2b51644686,
     type: 3}
   bulletSpawnPoint: {fileID: 1217717048}
@@ -6205,6 +6205,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &995515172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995515161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 296c0f35b303946479d0ec9ab08340fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.06
+  rightLimit: {fileID: 1339325834}
 --- !u!1001 &1035190020
 PrefabInstance:
   m_ObjectHideFlags: 0
