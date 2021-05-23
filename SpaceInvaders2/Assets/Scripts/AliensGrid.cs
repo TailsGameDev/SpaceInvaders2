@@ -67,15 +67,12 @@ public class AliensGrid : MonoBehaviour
 
             shootersList = new List<Alien>();
 
-            // TODO: make aliens move along some frames instead of all in the same frame
             for (int e = 0; e < aliens.Count; e++)
             {
                 Alien enemy = aliens[e];
                 if (enemy.IsAlive)
                 {
                     enemy.MoveAndAnimate(x: moveHorizontalDistance, y: yMove);
-
-                    reachedLimit |= (Mathf.Abs(enemy.X) > rightLimit.position.x);
 
                     bool isBehindOther = false;
                     int indexOfEnemyBelow = e - 11;
@@ -91,6 +88,10 @@ public class AliensGrid : MonoBehaviour
                     if (!isBehindOther)
                     {
                         shootersList.Add(enemy);
+
+                        // Take advantage of the fact there is at least a single shooter in each column to make just the
+                        // shooter of the column check for the reachLimit of the screen
+                        reachedLimit |= (Mathf.Abs(enemy.X) > rightLimit.position.x);
                     }
                 }
             }
@@ -106,8 +107,8 @@ public class AliensGrid : MonoBehaviour
 
         // It's too weird when there is just a single alien ship if it can shoot like 3 bullets or more, so let's
         // limit the shooting when there is too few aliens on shooterList
-        int len = Mathf.Min(bulletInstances.Length, shootersList.Count);
-        for (int b = 0; b < len; b++)
+        int iterationLimit = Mathf.Min(bulletInstances.Length, shootersList.Count);
+        for (int b = 0; b < iterationLimit; b++)
         {
             if (bulletInstances[b] == null && Time.time > timeAfterMinCooldown)
             {
@@ -171,5 +172,27 @@ public class AliensGrid : MonoBehaviour
             ResetAndEnable(bulletsAllowed: bulletInstances.Length + 1);
             BarrierPiece.EnableAllPieces();
         }
+    }
+
+    public Alien GetClosestShooterAlienOrGetNull(Vector3 referencePosition)
+    {
+        Alien closest = null;
+        if (shootersList.Count > 0)
+        {
+            closest = shootersList[0];
+            float minSqrDistance = Vector3.SqrMagnitude(vector: referencePosition - closest.transform.position);
+            for (int s = 1; s < shootersList.Count; s++)
+            {
+                Alien candidate = shootersList[s];
+                float sqrDistance = Vector3.SqrMagnitude(vector: referencePosition - candidate.transform.position);
+
+                if (sqrDistance < minSqrDistance)
+                {
+                    closest = candidate;
+                    minSqrDistance = sqrDistance;
+                }
+            }
+        }
+        return closest;
     }
 }

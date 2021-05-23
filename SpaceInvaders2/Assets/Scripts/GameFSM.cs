@@ -43,7 +43,7 @@ public class GameFSM : MonoBehaviour
         switch (currentState)
         {
             case GameState.MENU:
-                if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire1"))
+                if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2"))
                 {
                     nextState = GameState.STARTING;
                 }

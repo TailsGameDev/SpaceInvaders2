@@ -5,7 +5,7 @@ public class PlayerScore : MonoBehaviour
     [SerializeField]
     private UserInterface userInterface = null;
     [SerializeField]
-    private Player player = null;
+    private PlayerDamageable player = null;
     [SerializeField]
     private int scoreToEarnALife = 0;
 
@@ -20,7 +20,7 @@ public class PlayerScore : MonoBehaviour
         int secondRemainder = score % scoreToEarnALife;
         if (secondRemainder < remainder)
         {
-            player.EarnALife();
+            player.GainALife();
         }
 
         userInterface.UpdateScore(score);

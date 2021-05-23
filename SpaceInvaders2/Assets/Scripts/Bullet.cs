@@ -3,7 +3,7 @@
 public class Bullet : MonoBehaviour
 {
     [SerializeField]
-    private float speed = 0.0f;
+    protected float speed = 0.0f;
 
     [SerializeField]
     private GameObject redExplosionPrototype = null;
@@ -11,24 +11,28 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private GameObject whiteExplosionPrototype = null;
 
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         transform.position += (transform.up * speed);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    protected virtual void OnTriggerEnter2D(Collider2D other)
     {
-        switch (other.tag)
+        if (gameObject.activeInHierarchy)
         {
-            case "damageable":
-                Instantiate(whiteExplosionPrototype, other.transform.position, Quaternion.identity);
-                other.GetComponent<Damageable>().Die();
-                Destroy(gameObject);
-                break;
-            case "screen_end":
-                Instantiate(redExplosionPrototype, transform.position, Quaternion.identity);
-                Destroy(gameObject);
-                break;
+            switch (other.tag)
+            {
+                case "damageable":
+                    Instantiate(whiteExplosionPrototype, other.transform.position, Quaternion.identity);
+                    other.GetComponent<Damageable>().Die();
+                    gameObject.SetActive(false);
+                    Destroy(gameObject);
+                    break;
+                case "screen_end":
+                    Instantiate(redExplosionPrototype, transform.position, Quaternion.identity);
+                    Destroy(gameObject);
+                    break;
+            }
         }
     }
 }
