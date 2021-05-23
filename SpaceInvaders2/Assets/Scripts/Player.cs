@@ -37,6 +37,11 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        // It's important to let this script active and enable at beggining, so it can set y and x as soon as possible
+        this.enabled = false;
+        y = transform.position.y;
+        z = transform.position.z;
+
         PursuerBullet.Aim = aim.gameObject;
     }
 
@@ -85,9 +90,6 @@ public class Player : MonoBehaviour
 
     public void ResetPositionAndShotsCounter()
     {
-        y = transform.position.y;
-        z = transform.position.z;
-
         transform.position = new Vector3(-rightLimit.position.x, y, z);
 
         this.regularShotsCounter = 0;

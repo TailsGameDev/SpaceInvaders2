@@ -116,6 +116,7 @@ public class AliensGrid : MonoBehaviour
                 moveHorizontalDistance = -moveHorizontalDistance;
             }
 
+            stepsAudioSource.pitch = (8.0f - (3*(timeToMove - Time.time) / delayToMove))/5;
             stepsAudioSource.PlayOneShot(stepsAudioClips[stepSoundIndex]);
             stepSoundIndex = (stepSoundIndex + 1) % stepsAudioClips.Length;
         }
