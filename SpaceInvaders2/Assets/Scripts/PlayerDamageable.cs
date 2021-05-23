@@ -40,7 +40,7 @@ public class PlayerDamageable : Damageable
         }
         else
         {
-            Debug.LogWarning("[PlayerDamageable] what is dead may never die", this);
+            Debug.LogWarning("[PlayerDamageable] What is dead may never die", this);
         }
     }
     public void EarnALife()

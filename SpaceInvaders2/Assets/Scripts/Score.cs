@@ -7,7 +7,8 @@ public class Score : MonoBehaviour
     [SerializeField]
     private PlayerDamageable player = null;
     [SerializeField]
-    private int scoreToEarnALife = 0;
+    private int[] scoresToEarnLife = null;
+    private int scoresToEarnLifeIndex;
 
     private int points;
     private int highestScore;
@@ -24,11 +25,10 @@ public class Score : MonoBehaviour
     public void ScorePoints(int pointsIncrement)
     {
         // Check if score is enough to player.EarnALife() by some modulus calculus. And update score value in the proccess
-        int remainder = this.points % scoreToEarnALife;
         this.points += pointsIncrement;
-        int secondRemainder = this.points % scoreToEarnALife;
-        if (secondRemainder < remainder)
+        if (this.points > scoresToEarnLife[scoresToEarnLifeIndex])
         {
+            scoresToEarnLifeIndex++;
             player.EarnALife();
         }
 

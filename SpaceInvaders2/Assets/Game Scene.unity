@@ -1794,7 +1794,7 @@ GameObject:
   - component: {fileID: 225162557}
   - component: {fileID: 225162556}
   m_Layer: 5
-  m_Name: Score
+  m_Name: Score Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9310,7 +9310,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenuAndHUD: {fileID: 1187487452}
   player: {fileID: 995515166}
-  scoreToEarnALife: 500
+  scoresToEarnLife: 64000000fa000000f4010000ee020000e803000046050000a4060000d0070000c4090000b80b0000ac0d0000a00f0000941100008813000070170000581b0000401f00002823000010270000e02e0000b0360000803e000050460000204e0000cc5b00007869000030750000ffffff7f
 --- !u!4 &1561895113
 Transform:
   m_ObjectHideFlags: 0

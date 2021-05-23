@@ -18,7 +18,7 @@ public class AlienDamageable : Damageable
         }
         else
         {
-            Debug.LogWarning("[AlienDamageable] what is dead may never die", this);
+            Debug.LogWarning("[AlienDamageable] What is dead may never die", this);
         }
     }
 }
