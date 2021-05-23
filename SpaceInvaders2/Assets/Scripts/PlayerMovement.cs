@@ -19,7 +19,6 @@ public class PlayerMovement : MonoBehaviour
         z = transform.position.z;
     }
 
-    // Movement logic
     private void FixedUpdate()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");

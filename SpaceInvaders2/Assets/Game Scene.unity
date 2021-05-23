@@ -5910,9 +5910,10 @@ GameObject:
   m_Component:
   - component: {fileID: 995515163}
   - component: {fileID: 995515162}
-  - component: {fileID: 995515169}
-  - component: {fileID: 995515172}
   - component: {fileID: 995515164}
+  - component: {fileID: 995515172}
+  - component: {fileID: 995515173}
+  - component: {fileID: 995515169}
   - component: {fileID: 995515166}
   - component: {fileID: 995515167}
   - component: {fileID: 995515165}
@@ -6004,15 +6005,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 995515172}
-  bulletPrototype: {fileID: 26404718876168202, guid: dba06024a5950324e84ddc2b51644686,
-    type: 3}
-  bulletSpawnPoint: {fileID: 1217717048}
-  pursuerBulletPrototype: {fileID: -536890014164324725, guid: 4f838f10b3f8a9649863e8ca6eb0a7db,
-    type: 3}
-  aim: {fileID: 1459676435527808133}
-  amountOfShotsToEarnPursuerBullet: 10
-  aliensGrid: {fileID: 2042165416}
+  playerShooter: {fileID: 995515173}
   playerDamageable: {fileID: 995515166}
+  spriteRenderer: {fileID: 995515162}
 --- !u!61 &995515165
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6219,6 +6214,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.06
   rightLimit: {fileID: 1339325834}
+--- !u!114 &995515173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995515161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fab74a51a03341e47879b113270ff163, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrototype: {fileID: 26404718876168202, guid: dba06024a5950324e84ddc2b51644686,
+    type: 3}
+  bulletSpawnPoint: {fileID: 1217717048}
+  pursuerBulletPrototype: {fileID: -536890014164324725, guid: 4f838f10b3f8a9649863e8ca6eb0a7db,
+    type: 3}
+  aim: {fileID: 1459676435527808133}
+  amountOfShotsToEarnPursuerBullet: 10
+  aliensGrid: {fileID: 2042165416}
 --- !u!1001 &1035190020
 PrefabInstance:
   m_ObjectHideFlags: 0
