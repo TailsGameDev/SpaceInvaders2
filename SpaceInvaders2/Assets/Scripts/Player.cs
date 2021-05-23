@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
     // Shoot logic
     private void Update()
     {
-        if (Input.GetButtonDown("Jump") && currentBullet == null)
+        if ( (Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire1")) && currentBullet == null)
         {
             currentBullet = Instantiate(bulletPrototype, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
         }

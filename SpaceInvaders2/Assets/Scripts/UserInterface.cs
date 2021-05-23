@@ -14,18 +14,15 @@ public class UserInterface : MonoBehaviour
     private Text playerLifesText = null;
     [SerializeField]
     private Image[] playerLifeImages = null;
-
-    // Game Over
-    [SerializeField]
-    private Text gameOverText = null;
-    [SerializeField]
-    private float gameOverTimeBeforeFade = 0.0f;
     
     // Main Menu
     [SerializeField]
     private Image fader = null;
     [SerializeField]
     private Text playSpaceInvadersText = null;
+
+    [SerializeField]
+    private Text gameOverText = null;
 
     public void HideMenu()
     {

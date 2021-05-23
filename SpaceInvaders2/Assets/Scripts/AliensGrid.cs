@@ -107,7 +107,6 @@ public class AliensGrid : MonoBehaviour
         // It's too weird when there is just a single alien ship if it can shoot like 3 bullets or more, so let's
         // limit the shooting when there is too few aliens on shooterList
         int len = Mathf.Min(bulletInstances.Length, shootersList.Count);
-
         for (int b = 0; b < len; b++)
         {
             if (bulletInstances[b] == null && Time.time > timeAfterMinCooldown)

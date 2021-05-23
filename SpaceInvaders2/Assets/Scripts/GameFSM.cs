@@ -16,6 +16,8 @@ public class GameFSM : MonoBehaviour
     [SerializeField]
     private AliensGrid aliensGrid = null;
     [SerializeField]
+    private AlienBonusShip alienBonusShip = null;
+    [SerializeField]
     private UserInterface userInterface = null;
     [SerializeField]
     private PlayerScore playerScore = null;
@@ -41,7 +43,7 @@ public class GameFSM : MonoBehaviour
         switch (currentState)
         {
             case GameState.MENU:
-                if (Input.GetButtonDown("Jump"))
+                if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire1"))
                 {
                     nextState = GameState.STARTING;
                 }
@@ -86,12 +88,14 @@ public class GameFSM : MonoBehaviour
             switch (currentState)
             {
                 case GameState.MENU:
-                    player.ResetLifes();
                     userInterface.TurnMenuOn(player.LifesAmount);
+                    player.ResetLifes();
+                    alienBonusShip.enabled = false;
                     break;
                 case GameState.STARTING:
                     BarrierPiece.EnableAllPieces();
                     aliensGrid.NewReset();
+                    alienBonusShip.enabled = true;
                     player.ResetPosition();
                     userInterface.HideMenu();
                     break;
