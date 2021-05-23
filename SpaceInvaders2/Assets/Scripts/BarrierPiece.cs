@@ -8,7 +8,7 @@ public class BarrierPiece : MonoBehaviour
     [SerializeField]
     private Collider2D col = null;
 
-    private static List<BarrierPiece> allBarrierPieces = new List<BarrierPiece>();
+    private static readonly List<BarrierPiece> allBarrierPieces = new List<BarrierPiece>();
 
     private void Awake()
     {

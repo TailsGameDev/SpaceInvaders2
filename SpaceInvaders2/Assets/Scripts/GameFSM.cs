@@ -5,6 +5,7 @@ public class GameFSM : MonoBehaviour
     public enum GameState
     {
         MENU,
+        CHOOSING_SKINS,
         STARTING,
         ACTION,
         PLAYER_DEAD,
@@ -18,9 +19,13 @@ public class GameFSM : MonoBehaviour
     [SerializeField]
     private AlienBonusShip alienBonusShip = null;
     [SerializeField]
-    private UserInterface userInterface = null;
+    private MainMenuAndHUD mainMenuAndHud = null;
     [SerializeField]
     private PlayerScore playerScore = null;
+    [SerializeField]
+    private UISkinsMenu uiSkinsMenu = null;
+    [SerializeField]
+    private BarrierRenderers barrierRenderers = null;
 
     [SerializeField]
     private float playerDeathDelay = 0.0f;
@@ -45,6 +50,12 @@ public class GameFSM : MonoBehaviour
         switch (currentState)
         {
             case GameState.MENU:
+                if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2"))
+                {
+                    nextState = GameState.CHOOSING_SKINS;
+                }
+                break;
+            case GameState.CHOOSING_SKINS:
                 if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2"))
                 {
                     nextState = GameState.STARTING;
@@ -90,22 +101,32 @@ public class GameFSM : MonoBehaviour
             switch (currentState)
             {
                 case GameState.MENU:
-                    userInterface.TurnMenuOn(player.LifesAmount);
+                    mainMenuAndHud.TurnMenuOn(player.LifesAmount);
                     player.ResetLifes();
                     alienBonusShip.enabled = false;
                     break;
+                case GameState.CHOOSING_SKINS:
+                    uiSkinsMenu.ShowUp();
+                    break;
                 case GameState.STARTING:
+                    uiSkinsMenu.Disappear();
+
+                    // Set skin colors in game elements
+                    PlayerSkinsUser.SetAllPlayerSkinsUserColor(uiSkinsMenu.GetPlayerColor());
+                    barrierRenderers.SetAllBarriersColor(uiSkinsMenu.GetBarrierColor());
+
+                    // Enable/Reset game fundamental elements
                     BarrierPiece.EnableAllPieces();
-                    aliensGrid.NewReset();
+                    aliensGrid.DoReset();
                     alienBonusShip.enabled = true;
                     player.ResetPositionAndShotsCounter();
-                    userInterface.HideMenu();
+                    mainMenuAndHud.HideMenu();
                     break;
                 case GameState.ACTION:
                     aliensGrid.enabled = true;
                     player.GetReadyForAction();
 
-                    userInterface.ShowPlayerLifes(player.LifesAmount);
+                    mainMenuAndHud.ShowPlayerLifes(player.LifesAmount);
                     break;
                 case GameState.PLAYER_DEAD:
                     aliensGrid.enabled = false;
@@ -115,7 +136,7 @@ public class GameFSM : MonoBehaviour
                     break;
                 case GameState.OVER:
                     playerScore.UpdateHighestScoreAndClearScore();
-                    userInterface.DisplayGameOverText();
+                    mainMenuAndHud.DisplayGameOverText();
 
                     currentTimeToWaitFor = Time.time + gameOverDelay;
                     break;

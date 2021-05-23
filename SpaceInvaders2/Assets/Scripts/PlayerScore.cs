@@ -3,7 +3,7 @@
 public class PlayerScore : MonoBehaviour
 {
     [SerializeField]
-    private UserInterface userInterface = null;
+    private MainMenuAndHUD mainMenuAndHUD = null;
     [SerializeField]
     private PlayerDamageable player = null;
     [SerializeField]
@@ -23,7 +23,7 @@ public class PlayerScore : MonoBehaviour
             player.GainALife();
         }
 
-        userInterface.UpdateScore(score);
+        mainMenuAndHUD.UpdateScore(score);
     }
 
     public void UpdateHighestScoreAndClearScore()
@@ -31,10 +31,10 @@ public class PlayerScore : MonoBehaviour
         if (score > highestScore)
         {
             highestScore = score;
-            userInterface.UpdateHighestScore(highestScore);
+            mainMenuAndHUD.UpdateHighestScore(highestScore);
         }
 
         score = 0;
-        userInterface.UpdateScore(score);
+        mainMenuAndHUD.UpdateScore(score);
     }
 }

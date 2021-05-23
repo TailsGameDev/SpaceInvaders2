@@ -11,6 +11,9 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private GameObject whiteExplosionPrototype = null;
 
+    [SerializeField]
+    private int immuneLayer = -1;
+
     protected virtual void FixedUpdate()
     {
         transform.position += (transform.up * speed);
@@ -23,10 +26,17 @@ public class Bullet : MonoBehaviour
             switch (other.tag)
             {
                 case "damageable":
-                    Instantiate(whiteExplosionPrototype, other.transform.position, Quaternion.identity);
-                    other.GetComponent<Damageable>().Die();
-                    // SetActive(false) so other scripts can check for this.gameObject.actifeSelf, as destruction can't be immediate.
-                    gameObject.SetActive(false);
+                    // Check for active because as the as destruction can't be immediate, we also do SetActive(false)
+                    // That covers the case of the bullet entering two damageable colliders in the same frame: 
+                    // only one of them should trigger the proccessing
+                    if (gameObject.activeInHierarchy 
+                        // Check immune layer to prevent aliens from accidentaly damage aliens
+                        && other.gameObject.layer != immuneLayer)
+                    {
+                        Instantiate(whiteExplosionPrototype, other.transform.position, Quaternion.identity);
+                        other.GetComponent<Damageable>().Die();
+                        gameObject.SetActive(false);
+                    }
                     break;
                 case "screen_end":
                     Instantiate(redExplosionPrototype, transform.position, Quaternion.identity);

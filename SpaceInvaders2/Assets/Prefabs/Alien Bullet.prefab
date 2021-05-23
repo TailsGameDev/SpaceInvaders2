@@ -102,6 +102,7 @@ MonoBehaviour:
     type: 3}
   whiteExplosionPrototype: {fileID: 5019236015572794878, guid: cae3d8174ed508543a3fdc6ae9022f2e,
     type: 3}
+  immuneLayer: 8
 --- !u!61 &5448260076715224306
 BoxCollider2D:
   m_ObjectHideFlags: 0

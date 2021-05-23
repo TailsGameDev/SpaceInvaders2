@@ -7,7 +7,7 @@ public class PlayerDamageable : Damageable
     private int lifesAmount = 0;
     
     [SerializeField]
-    private UserInterface userInterface = null;
+    private MainMenuAndHUD mainMenuAndHUD = null;
 
     private bool isDead;
 
@@ -24,17 +24,24 @@ public class PlayerDamageable : Damageable
     }
     public override void Die()
     {
-        // NOTE: GameFSM.cs checks this.isDead on 'Update()' so it can control the game flow
-        isDead = true;
-        // NOTE: By the way, when GameFSM notices isDead==true,
-        // it also updates the userInterface for lifesAmount after a little time interval (2 seconds)
-        // together with other userInterface elements
-        lifesAmount--;
+        if (!isDead)
+        {
+            // NOTE: GameFSM.cs checks this.isDead on 'Update()' so it can control the game flow
+            isDead = true;
+            // NOTE: By the way, when GameFSM notices isDead==true,
+            // it also updates the userInterface for lifesAmount after a little time interval (2 seconds)
+            // together with other userInterface elements
+            lifesAmount--;
+        }
+        else
+        {
+            Debug.LogWarning("[PlayerDamageable] what is dead may never die", this);
+        }
     }
     public void GainALife()
     {
         lifesAmount++;
-        userInterface.ShowPlayerLifes(lifesAmount);
+        mainMenuAndHUD.ShowPlayerLifes(lifesAmount);
     }
     public void LoseAllLifesAndDie()
     {

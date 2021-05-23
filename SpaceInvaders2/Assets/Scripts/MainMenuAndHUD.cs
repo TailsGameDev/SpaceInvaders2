@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class UserInterface : MonoBehaviour
+public class MainMenuAndHUD : MonoBehaviour
 {
     // Top of screen
     [SerializeField]

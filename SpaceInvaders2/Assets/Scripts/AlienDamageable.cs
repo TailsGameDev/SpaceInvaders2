@@ -11,7 +11,14 @@ public class AlienDamageable : Damageable
 
     public override void Die()
     {
-        gameObject.SetActive(false);
-        aliensGrid.OnAlienDied(alien);
+        if (gameObject.activeInHierarchy)
+        {
+            gameObject.SetActive(false);
+            aliensGrid.OnAlienDied(alien);
+        }
+        else
+        {
+            Debug.LogWarning("[AlienDamageable] what is dead may never die", this);
+        }
     }
 }

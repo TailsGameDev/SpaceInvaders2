@@ -137,7 +137,7 @@ public class AliensGrid : MonoBehaviour
 
         enabled = true;
     }
-    public void NewReset(int bulletsAllowed = 1)
+    public void DoReset(int bulletsAllowed = 1)
     {
         foreach (Alien alien in aliens)
         {

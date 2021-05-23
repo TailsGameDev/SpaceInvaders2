@@ -94,10 +94,17 @@ public class AlienBonusShip : Damageable
 
     public override void Die()
     {
-        SetComponentsEnabled(false);
+        if (spriteRenderer.enabled)
+        {
+            SetComponentsEnabled(false);
 
-        playerScore.ScorePoints(pointsToScoreOnDeath);
+            playerScore.ScorePoints(pointsToScoreOnDeath);
 
-        Instantiate(brokenAlienBonusShip, transform.position, Quaternion.identity);
+            Instantiate(brokenAlienBonusShip, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogWarning("[AlienBonusShip] What is dead may never die", this);
+        }
     }
 }
