@@ -3,7 +3,7 @@
 public class AlienBonusShip : Damageable
 {
     [SerializeField]
-    private PlayerScore playerScore = null;
+    private Score score = null;
 
     [SerializeField]
     private Collider2D col = null;
@@ -98,7 +98,7 @@ public class AlienBonusShip : Damageable
         {
             SetComponentsEnabled(false);
 
-            playerScore.ScorePoints(pointsToScoreOnDeath);
+            score.ScorePoints(pointsToScoreOnDeath);
 
             Instantiate(brokenAlienBonusShip, transform.position, Quaternion.identity);
         }

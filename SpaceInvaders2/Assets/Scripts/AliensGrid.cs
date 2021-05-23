@@ -34,7 +34,7 @@ public class AliensGrid : MonoBehaviour
 
     // Score
     [SerializeField]
-    private PlayerScore playerScore = null;
+    private Score score = null;
 
     private void Awake()
     {
@@ -155,7 +155,7 @@ public class AliensGrid : MonoBehaviour
 
         shootersList.Remove(alien);
 
-        playerScore.ScorePoints(alien.PointsToScoreOnDeath);
+        score.ScorePoints(alien.PointsToScoreOnDeath);
 
         bool isThereAnAlienAlive = false;
         foreach (Alien a in aliens)

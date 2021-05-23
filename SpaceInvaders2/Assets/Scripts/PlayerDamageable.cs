@@ -38,7 +38,7 @@ public class PlayerDamageable : Damageable
             Debug.LogWarning("[PlayerDamageable] what is dead may never die", this);
         }
     }
-    public void GainALife()
+    public void EarnALife()
     {
         lifesAmount++;
         mainMenuAndHUD.ShowPlayerLifes(lifesAmount);

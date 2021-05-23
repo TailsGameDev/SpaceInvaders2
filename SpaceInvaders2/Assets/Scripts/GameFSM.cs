@@ -21,7 +21,7 @@ public class GameFSM : MonoBehaviour
     [SerializeField]
     private MainMenuAndHUD mainMenuAndHud = null;
     [SerializeField]
-    private PlayerScore playerScore = null;
+    private Score score = null;
     [SerializeField]
     private UISkinsMenu uiSkinsMenu = null;
     [SerializeField]
@@ -40,6 +40,8 @@ public class GameFSM : MonoBehaviour
         player.ResetLifes();
 
         Cursor.visible = false;
+
+        score.LoadHighestScoreThenDislpayIt();
     }
 
     private void Update()
@@ -135,7 +137,7 @@ public class GameFSM : MonoBehaviour
                     currentTimeToWaitFor = Time.time + playerDeathDelay;
                     break;
                 case GameState.OVER:
-                    playerScore.UpdateHighestScoreAndClearScore();
+                    score.UpdateHighestScoreAndClearScore();
                     mainMenuAndHud.DisplayGameOverText();
 
                     currentTimeToWaitFor = Time.time + gameOverDelay;
