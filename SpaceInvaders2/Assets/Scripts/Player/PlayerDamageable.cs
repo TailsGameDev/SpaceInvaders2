@@ -10,7 +10,7 @@ public class PlayerDamageable : Damageable
     private MainMenuAndHUD mainMenuAndHUD = null;
 
     [SerializeField]
-    private AudioSource audioSource = null;
+    private GameObject deadPlayer = null;
 
     private bool isDead;
 
@@ -36,7 +36,7 @@ public class PlayerDamageable : Damageable
             // together with other userInterface elements
             lifesAmount--;
 
-            audioSource.Play();
+            Instantiate(deadPlayer, transform.position, Quaternion.identity);
         }
         else
         {

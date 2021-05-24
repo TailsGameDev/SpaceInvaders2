@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 5448260076715224306}
   - component: {fileID: 8260719068599002884}
   - component: {fileID: 3270083964680272010}
+  - component: {fileID: 4451481682748132136}
+  - component: {fileID: 24981745659568593}
   m_Layer: 0
   m_Name: Alien Bullet
   m_TagString: bullet
@@ -157,7 +159,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4487508627980080139}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2dd770ed8e26084aa830ed9c1653952, type: 3}
   m_Name: 
@@ -167,3 +169,36 @@ MonoBehaviour:
   sprites:
   - {fileID: 21300000, guid: c51071c056d2c7349a69ba2b1cc44189, type: 3}
   - {fileID: 21300000, guid: 85cb6a16f0b38b240b124468d3ea7ade, type: 3}
+--- !u!114 &4451481682748132136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4487508627980080139}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2dd770ed8e26084aa830ed9c1653952, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 6518990638403173046}
+  delayToChangeSprite: 0.2
+  sprites:
+  - {fileID: 21300000, guid: 432ad66dd2beb9641831bf24fee1864c, type: 3}
+  - {fileID: 21300000, guid: 934a4a38fe2a8554a9219a3e839fb68e, type: 3}
+  - {fileID: 21300000, guid: 7b9fa22e12197eb4fb1478d73acac469, type: 3}
+--- !u!114 &24981745659568593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4487508627980080139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8fa46f274214e34dbb6800fea617795, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simplifiedAnimators:
+  - {fileID: 3270083964680272010}
+  - {fileID: 4451481682748132136}
