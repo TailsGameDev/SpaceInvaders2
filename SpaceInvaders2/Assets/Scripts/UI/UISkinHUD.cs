@@ -27,7 +27,7 @@ public class UISkinHUD : MonoBehaviour
         string newText = requiredScoreText.text.Replace("0000", coloredRequiredPoints);
         requiredScoreText.text = newText;
     }
-    private void Start()
+    private void OnEnable()
     {
         if (IsAvailable())
         {

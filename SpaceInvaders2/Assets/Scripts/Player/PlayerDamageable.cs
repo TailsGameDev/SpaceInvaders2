@@ -50,8 +50,7 @@ public class PlayerDamageable : Damageable
     }
     public void LoseAllLifesAndDie()
     {
-        // Let's give the player exactly 1 life, so it can Die and lose it. This way after dying zero lifes remain.
-        lifesAmount = 1;
+        lifesAmount = 0;
         Die();
     }
 }

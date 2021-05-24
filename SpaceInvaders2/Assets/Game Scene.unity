@@ -13162,10 +13162,11 @@ MonoBehaviour:
   - {fileID: 176730087}
   - {fileID: 1384342955}
   rightLimit: {fileID: 1339325834}
-  delayToMove: 1
+  originalDelayToMove: 1
   speedBonusPerKill: 0.0188
   moveHorizontalDistance: 0.1
   moveVerticalDistance: -0.45
+  bonusMovementPerLevel: 0.0075
   stopOnDeathDelay: 0.05
   alienBulletPrototype: {fileID: 9076616786013852415, guid: bb6e358f597c4b148b3ee068482a7244,
     type: 3}
