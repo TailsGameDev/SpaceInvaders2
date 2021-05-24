@@ -19,21 +19,37 @@ public class MainMenuAndHUD : MonoBehaviour
     [SerializeField]
     private Image fader = null;
     [SerializeField]
-    private UIAnimatedText playSpaceInvadersText = null;
+    private UIAnimatedText[] mainMenuAnimatedTexts = null;
+    [SerializeField]
+    private Text[] mainMenuTexts = null;
 
     [SerializeField]
     private UIAnimatedText gameOverText = null;
 
     public void HideMenu()
     {
-        playSpaceInvadersText.Hide();
+        foreach (UIAnimatedText text in mainMenuAnimatedTexts)
+        {
+            text.Hide();
+        }
+        foreach (Text text in mainMenuTexts)
+        {
+            text.enabled = false;
+        }
         fader.enabled = false;
     }
     public void TurnMenuOn(int playerLifesAmount)
     {
         fader.enabled = true;
         gameOverText.Hide();
-        playSpaceInvadersText.StartWritting();
+        foreach (UIAnimatedText text in mainMenuAnimatedTexts)
+        {
+            text.StartWritting();
+        }
+        foreach (Text text in mainMenuTexts)
+        {
+            text.enabled = true;
+        }
 
         ShowPlayerLifes(playerLifesAmount);
     }
