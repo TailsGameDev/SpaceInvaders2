@@ -14,11 +14,11 @@ public class Player : MonoBehaviour
     public int LifesAmount { get => playerDamageable.LifesAmount; }
     public bool IsDead { get => playerDamageable.IsDead; }
 
-    public void ResetPositionAndShotsCounter()
+    public void DoReset()
     {
         playerMovement.ResetPosition();
 
-        playerShooter.DoReset();
+        playerShooter.ResetAimAndShootsCounter();
     }
     public void ResetLifes()
     {

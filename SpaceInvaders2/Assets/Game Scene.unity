@@ -829,7 +829,7 @@ Transform:
   - {fileID: 24328378}
   - {fileID: 78558215}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &111935519 stripped
 MonoBehaviour:
@@ -1602,6 +1602,7 @@ GameObject:
   m_Component:
   - component: {fileID: 214273693}
   - component: {fileID: 214273695}
+  - component: {fileID: 214273696}
   - component: {fileID: 214273694}
   m_Layer: 5
   m_Name: Game Over Text
@@ -1655,7 +1656,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 49
-    m_Alignment: 2
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -1670,6 +1671,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 214273692}
   m_CullTransparentMesh: 0
+--- !u!114 &214273696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214273692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a1fbd06646c423499041131938d55eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 214273694}
+  originalText: GAME OVER
+  delayForEachLetter: 0.1
 --- !u!1001 &217957369
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3817,7 +3833,7 @@ Transform:
   - {fileID: 2119194006}
   - {fileID: 1716943197}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &582355423
 PrefabInstance:
@@ -3975,7 +3991,7 @@ Transform:
   - {fileID: 1736329332}
   - {fileID: 987279709}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &594935821
 MonoBehaviour:
@@ -4111,7 +4127,7 @@ Transform:
   - {fileID: 1638005858}
   - {fileID: 1561895113}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &625492633
 GameObject:
@@ -4410,6 +4426,7 @@ GameObject:
   m_Component:
   - component: {fileID: 732827366}
   - component: {fileID: 732827368}
+  - component: {fileID: 732827369}
   - component: {fileID: 732827367}
   m_Layer: 5
   m_Name: Play Space Invaders
@@ -4463,7 +4480,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 49
-    m_Alignment: 1
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -4481,6 +4498,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 732827365}
   m_CullTransparentMesh: 0
+--- !u!114 &732827369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732827365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a1fbd06646c423499041131938d55eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 732827367}
+  originalText: 'PLAY
+
+
+    SPACE INVADERS'
+  delayForEachLetter: 0.1
 --- !u!1001 &735497593
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5989,8 +6024,9 @@ Transform:
   m_LocalScale: {x: 4.5, y: 3.7, z: 4}
   m_Children:
   - {fileID: 1217717048}
+  - {fileID: 1459676435527808133}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &995515164
 MonoBehaviour:
@@ -6221,7 +6257,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 995515161}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fab74a51a03341e47879b113270ff163, type: 3}
   m_Name: 
@@ -6849,8 +6885,8 @@ MonoBehaviour:
   - {fileID: 990224340}
   - {fileID: 625492635}
   fader: {fileID: 1198836556}
-  playSpaceInvadersText: {fileID: 732827367}
-  gameOverText: {fileID: 214273694}
+  playSpaceInvadersText: {fileID: 732827369}
+  gameOverText: {fileID: 214273696}
 --- !u!114 &1191699915 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4953641312496379612, guid: bf609c226d930ca49b6976ae37fffd40,
@@ -7779,7 +7815,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1347158447
 PrefabInstance:
@@ -9823,7 +9859,7 @@ MonoBehaviour:
   uiSkinsMenu: {fileID: 1690587525}
   barrierRenderers: {fileID: 594935821}
   playerDeathDelay: 1.5
-  gameOverDelay: 2
+  gameOverDelay: 3
 --- !u!4 &1638005858
 Transform:
   m_ObjectHideFlags: 0
@@ -12708,7 +12744,7 @@ Transform:
   - {fileID: 1472930402}
   - {fileID: 949033172}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &2042165418
 AudioSource:
@@ -13531,11 +13567,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6827121107618125958}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalPosition: {x: 0.1777778, y: 0.9621622, z: 0}
+  m_LocalScale: {x: 1.1111112, y: 1.3513515, z: 0.25}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 995515163}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1684172257032999154 stripped
 Transform:

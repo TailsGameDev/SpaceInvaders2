@@ -62,8 +62,9 @@ public class PlayerShooter : MonoBehaviour
         }
     }
 
-    public void DoReset()
+    public void ResetAimAndShootsCounter()
     {
         this.regularShotsCounter = 0;
+        aim.gameObject.SetActive(false);
     }
 }

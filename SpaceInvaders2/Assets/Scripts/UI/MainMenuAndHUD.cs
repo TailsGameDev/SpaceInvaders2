@@ -19,21 +19,21 @@ public class MainMenuAndHUD : MonoBehaviour
     [SerializeField]
     private Image fader = null;
     [SerializeField]
-    private Text playSpaceInvadersText = null;
+    private UIAnimatedText playSpaceInvadersText = null;
 
     [SerializeField]
-    private Text gameOverText = null;
+    private UIAnimatedText gameOverText = null;
 
     public void HideMenu()
     {
-        playSpaceInvadersText.enabled = false;
+        playSpaceInvadersText.Hide();
         fader.enabled = false;
     }
     public void TurnMenuOn(int playerLifesAmount)
     {
         fader.enabled = true;
-        gameOverText.enabled = false;
-        playSpaceInvadersText.enabled = true;
+        gameOverText.Hide();
+        playSpaceInvadersText.StartWritting();
 
         ShowPlayerLifes(playerLifesAmount);
     }
@@ -59,6 +59,6 @@ public class MainMenuAndHUD : MonoBehaviour
     }
     public void DisplayGameOverText()
     {
-        gameOverText.enabled = true;
+        gameOverText.StartWritting();
     }
 }

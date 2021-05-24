@@ -44,6 +44,8 @@ public class GameFSM : MonoBehaviour
         score.LoadHighestScoreThenDislpayIt();
 
         UISkinHUD.ScoreReference = score;
+
+        mainMenuAndHud.TurnMenuOn(player.LifesAmount);
     }
 
     private void Update()
@@ -123,7 +125,7 @@ public class GameFSM : MonoBehaviour
                     BarrierPiece.EnableAllPieces();
                     aliensGrid.DoReset();
                     alienBonusShip.enabled = true;
-                    player.ResetPositionAndShotsCounter();
+                    player.DoReset();
 
                     mainMenuAndHud.HideMenu();
                     break;
