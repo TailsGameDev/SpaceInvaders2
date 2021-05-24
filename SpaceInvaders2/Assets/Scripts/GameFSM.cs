@@ -26,6 +26,8 @@ public class GameFSM : MonoBehaviour
     private UISkinsMenu uiSkinsMenu = null;
     [SerializeField]
     private BarrierRenderers barrierRenderers = null;
+    [SerializeField]
+    private Pause pause = null;
 
     [SerializeField]
     private float playerDeathDelay = 0.0f;
@@ -137,12 +139,14 @@ public class GameFSM : MonoBehaviour
                 case GameState.ACTION:
                     aliensGrid.StartToMove();
                     player.GetReadyForAction();
+                    pause.enabled = true;
 
                     mainMenuAndHud.ShowPlayerLifes(player.LifesAmount);
                     break;
                 case GameState.PLAYER_DEAD:
                     aliensGrid.StopMoving();
                     player.BehaveAsDead();
+                    pause.enabled = false;
 
                     currentTimeToWaitFor = Time.time + playerDeathDelay;
                     break;

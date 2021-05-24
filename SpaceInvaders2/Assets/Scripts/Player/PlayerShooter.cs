@@ -23,6 +23,9 @@ public class PlayerShooter : MonoBehaviour
     private AliensGrid aliensGrid = null;
     private Alien closestAlien;
 
+    [SerializeField]
+    private Pause pause = null;
+
     private void Awake()
     {
         PursuerBullet.Aim = aim.gameObject;
@@ -30,35 +33,38 @@ public class PlayerShooter : MonoBehaviour
 
     private void Update()
     {
-        // Regular Shooting and Aiming
-        bool shouldShootRegularBullet = (Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire2")) && currentBullet == null;
-        if (shouldShootRegularBullet)
+        if (!pause.IsGamePaused())
         {
-            currentBullet = Instantiate(bulletPrototype, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-
-            // If player got a Pursuer Bullet and didn't shoot it yet
-            regularShotsCounter++;
-            if (regularShotsCounter >= amountOfShotsToEarnPursuerBullet)
+            // Regular Shooting and Aiming
+            bool shouldShootRegularBullet = (Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire2")) && currentBullet == null;
+            if (shouldShootRegularBullet)
             {
-                // Then focus aim in the closest alien
-                closestAlien = aliensGrid.GetClosestShooterAlienOrGetNull(transform.position);
-                if (closestAlien != null)
+                currentBullet = Instantiate(bulletPrototype, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+
+                // If player got a Pursuer Bullet and didn't shoot it yet
+                regularShotsCounter++;
+                if (regularShotsCounter >= amountOfShotsToEarnPursuerBullet)
                 {
-                    aim.SetParent(closestAlien.transform);
-                    aim.localPosition = Vector3.zero;
-                    aim.gameObject.SetActive(true);
+                    // Then focus aim in the closest alien
+                    closestAlien = aliensGrid.GetClosestShooterAlienOrGetNull(transform.position);
+                    if (closestAlien != null)
+                    {
+                        aim.SetParent(closestAlien.transform);
+                        aim.localPosition = Vector3.zero;
+                        aim.gameObject.SetActive(true);
+                    }
                 }
             }
-        }
 
-        // Pursuer Bullet Shooting
-        bool shouldShootPursuerBullet = Input.GetButtonDown("Fire1") && regularShotsCounter >= amountOfShotsToEarnPursuerBullet && closestAlien.gameObject.activeInHierarchy;
-        if (shouldShootPursuerBullet)
-        {
-            PursuerBullet pursuerBullet = Instantiate(pursuerBulletPrototype, bulletSpawnPoint.position, Quaternion.identity);
-            pursuerBullet.Target = closestAlien.transform;
+            // Pursuer Bullet Shooting
+            bool shouldShootPursuerBullet = Input.GetButtonDown("Fire1") && regularShotsCounter >= amountOfShotsToEarnPursuerBullet && closestAlien.gameObject.activeInHierarchy;
+            if (shouldShootPursuerBullet)
+            {
+                PursuerBullet pursuerBullet = Instantiate(pursuerBulletPrototype, bulletSpawnPoint.position, Quaternion.identity);
+                pursuerBullet.Target = closestAlien.transform;
 
-            regularShotsCounter = 0;
+                regularShotsCounter = 0;
+            }
         }
     }
 
