@@ -11,10 +11,10 @@ public class UISkinsMenu : MonoBehaviour
 
     private void Update()
     {
+        // Filter a little bit the input passed for the UISkinsCarousels so only one of them execute at a time
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         bool isHorizontalGreatest = Mathf.Abs(horizontal) > Mathf.Abs(vertical);
-
         if (isHorizontalGreatest)
         {
             barrierSkinsCarousel.TreatInput(0.0f);

@@ -62,7 +62,15 @@ public class GameFSM : MonoBehaviour
             case GameState.MENU:
                 if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2"))
                 {
-                    nextState = GameState.CHOOSING_SKINS;
+                    if (mainMenuAndHud.IsPlayButtonSelected())
+                    {
+                        nextState = GameState.CHOOSING_SKINS;
+                    }
+                    else
+                    {
+                        // Instead of creating a state just for quitting, for now Let's just Quit()
+                        Application.Quit();
+                    }
                 }
                 break;
             case GameState.CHOOSING_SKINS:

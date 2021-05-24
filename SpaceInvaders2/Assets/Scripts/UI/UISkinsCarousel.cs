@@ -33,7 +33,7 @@ public class UISkinsCarousel : MonoBehaviour
                 
                     int indexIncrement = inputRawAxisValue > 0.0f ? 1 : -1;
                     // Increment index but let it inside of bounds in a circular behaviour.
-                    this.currentIndex = Mod(dividend: (currentIndex + indexIncrement), divisor: uiSkinHUDs.Length);
+                    this.currentIndex = Mod.mod(dividend: (currentIndex + indexIncrement), divisor: uiSkinHUDs.Length);
                 }
 
                 UISkinHUD skinToDisplay = uiSkinHUDs[currentIndex];
@@ -46,10 +46,6 @@ public class UISkinsCarousel : MonoBehaviour
             }
             this.lastFrameInputRawAxisValue = inputRawAxisValue;
         }
-    }
-    private int Mod(int dividend, int divisor)
-    {
-        return (dividend % divisor + divisor) % divisor;
     }
 
     public Color GetLastValidColorSelected()

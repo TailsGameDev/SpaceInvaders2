@@ -26,6 +26,32 @@ public class MainMenuAndHUD : MonoBehaviour
     [SerializeField]
     private UIAnimatedText gameOverText = null;
 
+    [SerializeField]
+    private Image[] selections = null;
+    private int selectionIndex;
+    private bool inputWasZeroLastFrame;
+
+    private void Update()
+    {
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        bool isPressingInput = !Mathf.Approximately(horizontal, 0.0f);
+        if (isPressingInput && inputWasZeroLastFrame)
+        {
+            selections[selectionIndex].enabled = false;
+
+            int increment = horizontal > 0.0f ? 1 : -1;
+            selectionIndex = Mathf.Clamp(selectionIndex+increment, min: 0, max: selections.Length-1 );
+
+            selections[selectionIndex].enabled = true;
+        }
+
+        inputWasZeroLastFrame = !isPressingInput;
+    }
+    public bool IsPlayButtonSelected()
+    {
+        return selectionIndex == 0;
+    }
+
     public void HideMenu()
     {
         foreach (UIAnimatedText text in mainMenuAnimatedTexts)
@@ -35,6 +61,10 @@ public class MainMenuAndHUD : MonoBehaviour
         foreach (Text text in mainMenuTexts)
         {
             text.enabled = false;
+        }
+        foreach (Image selection in selections)
+        {
+            selection.gameObject.SetActive(false);
         }
         fader.enabled = false;
     }
@@ -49,6 +79,10 @@ public class MainMenuAndHUD : MonoBehaviour
         foreach (Text text in mainMenuTexts)
         {
             text.enabled = true;
+        }
+        foreach (Image selection in selections)
+        {
+            selection.gameObject.SetActive(true);
         }
 
         ShowPlayerLifes(playerLifesAmount);
