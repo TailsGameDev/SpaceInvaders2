@@ -9,6 +9,25 @@ public class UISkinsMenu : MonoBehaviour
     [SerializeField]
     private UISkinsCarousel playerSkinsCarousel = null;
 
+    private void Update()
+    {
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        bool isHorizontalGreatest = Mathf.Abs(horizontal) > Mathf.Abs(vertical);
+
+        if (isHorizontalGreatest)
+        {
+            barrierSkinsCarousel.TreatInput(0.0f);
+            playerSkinsCarousel.TreatInput(horizontal);
+        }
+        else
+        {
+            barrierSkinsCarousel.TreatInput(vertical);
+            playerSkinsCarousel.TreatInput(0.0f);
+        }
+
+    }
+
     public void ShowUp()
     {
         gameObject.SetActive(true);

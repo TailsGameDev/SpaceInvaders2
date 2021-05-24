@@ -5884,7 +5884,7 @@ MonoBehaviour:
   - {fileID: 351696602}
   - {fileID: 2862255}
   - {fileID: 1865628277}
-  inputName: Horizontal
+  delayToShangeSkinIfKeepPressingInput: 0.3
 --- !u!1001 &981280509
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13546,7 +13546,7 @@ MonoBehaviour:
   - {fileID: 1268103868}
   - {fileID: 1399643191}
   - {fileID: 308680218}
-  inputName: Vertical
+  delayToShangeSkinIfKeepPressingInput: 0.3
 --- !u!1001 &2073187440
 PrefabInstance:
   m_ObjectHideFlags: 0

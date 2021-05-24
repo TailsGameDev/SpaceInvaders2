@@ -48,6 +48,8 @@ public class GameFSM : MonoBehaviour
         UISkinHUD.ScoreReference = score;
 
         mainMenuAndHud.TurnMenuOn(player.LifesAmount);
+
+        Screen.fullScreen = true;
     }
 
     private void Update()

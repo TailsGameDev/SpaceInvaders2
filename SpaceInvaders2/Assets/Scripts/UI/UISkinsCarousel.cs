@@ -6,37 +6,46 @@ public class UISkinsCarousel : MonoBehaviour
     private UISkinHUD[] uiSkinHUDs = null;
 
     [SerializeField]
-    private string inputName = null;
-    
+    private float delayToShangeSkinIfKeepPressingInput = 0.0f;
+    private float timeToMakeInputFresh;
+
     private int currentIndex;
     private int lastValidIndex;
     private float lastFrameInputRawAxisValue;
 
-    private void Update()
+    public void TreatInput(float inputRawAxisValue)
     {
-        float inputRawAxisValue = Input.GetAxisRaw(inputName);
-        bool isInputFresh = Mathf.Approximately(lastFrameInputRawAxisValue, 0.0f) && ( ! Mathf.Approximately(inputRawAxisValue, 0.0f));
-        if (isInputFresh)
+        bool isPressingInput = !Mathf.Approximately(inputRawAxisValue, 0.0f);
+        if (isPressingInput)
         {
-            uiSkinHUDs[currentIndex].ShowOrHide(show: false);
-
-            // Calculate new currentIndex based on Input
+            if (
+                // Input was zero last frame
+                (Mathf.Approximately(lastFrameInputRawAxisValue, 0.0f)) 
+                // Or pressed Input long enough to switch skin again
+                || Time.time > timeToMakeInputFresh)
             {
+                timeToMakeInputFresh = Time.time + delayToShangeSkinIfKeepPressingInput;
+
+                uiSkinHUDs[currentIndex].ShowOrHide(show: false);
+
+                // Calculate new currentIndex based on Input
+                {
                 
-                int indexIncrement = inputRawAxisValue > 0.0f ? 1 : -1;
-                // Increment index but let it inside of bounds in a circular behaviour.
-                this.currentIndex = Mod(dividend: (currentIndex + indexIncrement), divisor: uiSkinHUDs.Length);
-            }
+                    int indexIncrement = inputRawAxisValue > 0.0f ? 1 : -1;
+                    // Increment index but let it inside of bounds in a circular behaviour.
+                    this.currentIndex = Mod(dividend: (currentIndex + indexIncrement), divisor: uiSkinHUDs.Length);
+                }
 
-            UISkinHUD skinToDisplay = uiSkinHUDs[currentIndex];
-            skinToDisplay.ShowOrHide(show: true);
+                UISkinHUD skinToDisplay = uiSkinHUDs[currentIndex];
+                skinToDisplay.ShowOrHide(show: true);
             
-            if (skinToDisplay.IsAvailable())
-            {
-                lastValidIndex = currentIndex;
-            } 
+                if (skinToDisplay.IsAvailable())
+                {
+                    lastValidIndex = currentIndex;
+                } 
+            }
+            this.lastFrameInputRawAxisValue = inputRawAxisValue;
         }
-        this.lastFrameInputRawAxisValue = inputRawAxisValue;
     }
     private int Mod(int dividend, int divisor)
     {
