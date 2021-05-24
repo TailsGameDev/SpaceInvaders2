@@ -39,4 +39,9 @@ public class Alien : MonoBehaviour
 
         gameObject.SetActive(true);
     }
+
+    public void DeactivateGameObject()
+    {
+        gameObject.SetActive(false);
+    }
 }

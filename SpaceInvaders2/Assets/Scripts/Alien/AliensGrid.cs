@@ -57,6 +57,8 @@ public class AliensGrid : MonoBehaviour
 
     private Coroutine updateCoroutine = null;
     private WaitForFixedUpdate waitForFixedUpdate = new WaitForFixedUpdate();
+    private Coroutine resetCoroutine = null;
+    private bool isMoving;
 
     private void Awake()
     {
@@ -72,101 +74,115 @@ public class AliensGrid : MonoBehaviour
 
     public void StartToMove()
     {
-        updateCoroutine = StartCoroutine(UpdateCoroutine());
+        if (updateCoroutine == null)
+        {
+            updateCoroutine = StartCoroutine(UpdateCoroutine());
+        }
+        isMoving = true;
     }
     public void StopMoving()
     {
+        isMoving = false;
+        /*
         StopCoroutine(updateCoroutine);
         updateCoroutine = null;
+        */
     }
 
     private IEnumerator UpdateCoroutine()
     {
-        yield return null;
-
         while (true)
         {
-            if (Time.time >= timeToMove)
+            if (resetCoroutine == null)
             {
-                timeToMove = Time.time + delayToMove - speedBonus;
 
-                bool reachedLimit = false;
-
-                float yMove;
-                if (shouldGoDown)
+                if (Time.time >= timeToMove)
                 {
-                    yMove = moveVerticalDistance;
-                    shouldGoDown = false;
-                }
-                else
-                {
-                    yMove = 0.0f;
-                }
+                    timeToMove = Time.time + delayToMove - speedBonus;
 
-                shootersList = new List<Alien>();
+                    bool reachedLimit = false;
 
-                for (int e = 0; e < aliens.Count; e++)
-                {
-                    Alien enemy = aliens[e];
-                    if (enemy.IsAlive)
+                    float yMove;
+                    if (shouldGoDown)
                     {
-                        enemy.MoveAndAnimate(x: moveHorizontalDistance, y: yMove);
+                        yMove = moveVerticalDistance;
+                        shouldGoDown = false;
+                    }
+                    else
+                    {
+                        yMove = 0.0f;
+                    }
 
-                        bool isBehindOther = false;
-                        int indexOfEnemyBelow = e - 11;
-                        while (indexOfEnemyBelow > 0)
+                    shootersList = new List<Alien>();
+
+                    for (int e = 0; e < aliens.Count; e++)
+                    {
+                        Alien enemy = aliens[e];
+                        if (enemy.IsAlive)
                         {
-                            if (aliens[indexOfEnemyBelow].IsAlive)
+                            enemy.MoveAndAnimate(x: moveHorizontalDistance, y: yMove);
+
+                            bool isBehindOther = false;
+                            int indexOfEnemyBelow = e - 11;
+                            while (indexOfEnemyBelow > 0)
                             {
-                                isBehindOther = true;
-                                break;
+                                if (aliens[indexOfEnemyBelow].IsAlive)
+                                {
+                                    isBehindOther = true;
+                                    break;
+                                }
+                                indexOfEnemyBelow -= 11;
                             }
-                            indexOfEnemyBelow -= 11;
+                            if (!isBehindOther)
+                            {
+                                shootersList.Add(enemy);
+
+                                // Take advantage of the fact there is at least a single shooter in each column to make just the
+                                // shooter of the column check for the reachLimit of the screen
+                                reachedLimit |= (Mathf.Abs(enemy.X) > rightLimit.position.x);
+                            }
+
+                            yield return null;
                         }
-                        if (!isBehindOther)
+
+                        while (!isMoving)
                         {
-                            shootersList.Add(enemy);
-
-                            // Take advantage of the fact there is at least a single shooter in each column to make just the
-                            // shooter of the column check for the reachLimit of the screen
-                            reachedLimit |= (Mathf.Abs(enemy.X) > rightLimit.position.x);
+                            yield return null;
                         }
+                    }
 
-                        yield return null;
+                    if (reachedLimit)
+                    {
+                        shouldGoDown = true;
+                        moveHorizontalDistance = -moveHorizontalDistance;
+                    }
+
+                    if (Time.time > timeToAllowNextSoundStep)
+                    {
+                        timeToAllowNextSoundStep = Time.time + minIntervalBetweenStepSounds;
+
+                        stepsAudioSource.pitch = (8.0f - (3 * (timeToMove - Time.time) / delayToMove)) / 5;
+                        stepsAudioSource.PlayOneShot(stepsAudioClips[stepSoundIndex]);
+                        stepSoundIndex = (stepSoundIndex + 1) % stepsAudioClips.Length;
                     }
                 }
 
-                if (reachedLimit)
+                // It's too weird when there is just a single alien ship if it can shoot like 3 bullets or more, so let's
+                // limit the shooting when there is too few aliens on shooterList
+                int iterationLimit = Mathf.Min(bulletInstances.Length, shootersList.Count);
+                for (int b = 0; b < iterationLimit; b++)
                 {
-                    shouldGoDown = true;
-                    moveHorizontalDistance = -moveHorizontalDistance;
-                }
+                    if (bulletInstances[b] == null && Time.time > timeAfterMinCooldown)
+                    {
+                        int shooterIndex = Random.Range(0, shootersList.Count);
+                        Alien shooter = shootersList[shooterIndex];
 
-                if (Time.time > timeToAllowNextSoundStep)
-                {
-                    timeToAllowNextSoundStep = Time.time + minIntervalBetweenStepSounds;
+                        // Shoot
+                        bulletInstances[b] = Instantiate(alienBulletPrototype, shooter.transform.position - (Vector3.up * 0.8f),
+                            Quaternion.LookRotation(forward: Vector3.forward, upwards: -Vector3.up));
 
-                    stepsAudioSource.pitch = (8.0f - (3 * (timeToMove - Time.time) / delayToMove)) / 5;
-                    stepsAudioSource.PlayOneShot(stepsAudioClips[stepSoundIndex]);
-                    stepSoundIndex = (stepSoundIndex + 1) % stepsAudioClips.Length;
-                }
-            }
-
-            // It's too weird when there is just a single alien ship if it can shoot like 3 bullets or more, so let's
-            // limit the shooting when there is too few aliens on shooterList
-            int iterationLimit = Mathf.Min(bulletInstances.Length, shootersList.Count);
-            for (int b = 0; b < iterationLimit; b++)
-            {
-                if (bulletInstances[b] == null && Time.time > timeAfterMinCooldown)
-                {
-                    int shooterIndex = Random.Range(0, shootersList.Count);
-                    Alien shooter = shootersList[shooterIndex];
-
-                    // Shoot
-                    bulletInstances[b] = Instantiate(alienBulletPrototype, shooter.transform.position - (Vector3.up * 0.8f),
-                        Quaternion.LookRotation(forward: Vector3.forward, upwards: -Vector3.up));
-
-                    timeAfterMinCooldown = Time.time + minCooldown;
+                        timeAfterMinCooldown = Time.time + minCooldown;
+                    }
                 }
             }
 
@@ -174,29 +190,38 @@ public class AliensGrid : MonoBehaviour
         }
     }
 
-    public void ResetAndEnable(int bulletsAllowed = 1)
-    {
-        foreach (Alien alien in aliens)
-        {
-            alien.DoReset();
-        }
-
-        speedBonus = 0.0f;
-
-        bulletInstances = new Bullet[bulletsAllowed];
-
-        enabled = true;
-    }
     public void DoReset(int bulletsAllowed = 1)
     {
+        if (resetCoroutine != null)
+        {
+            StopCoroutine(resetCoroutine);
+        }
+        resetCoroutine = StartCoroutine(ResetCoroutine(bulletsAllowed));
+
+        if (updateCoroutine != null)
+        {
+            StopCoroutine(updateCoroutine);
+            updateCoroutine = null;
+        }
+    }
+    private IEnumerator ResetCoroutine(int bulletsAllowed)
+    {
+        foreach(Alien alien in aliens)
+        {
+            alien.DeactivateGameObject();
+        }
+
         foreach (Alien alien in aliens)
         {
+            yield return waitForFixedUpdate;
             alien.DoReset();
         }
 
         speedBonus = 0.0f;
 
         bulletInstances = new Bullet[bulletsAllowed];
+
+        resetCoroutine = null;
     }
 
     public void OnAlienDied(Alien alien)
@@ -224,7 +249,9 @@ public class AliensGrid : MonoBehaviour
         }
         else
         {
-            ResetAndEnable(bulletsAllowed: bulletInstances.Length + 1);
+            DoReset(bulletsAllowed: bulletInstances.Length + 1);
+            StartToMove();
+
             BarrierPiece.EnableAllPieces();
         }
 
