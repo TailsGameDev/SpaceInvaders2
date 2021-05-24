@@ -12711,6 +12711,7 @@ MonoBehaviour:
   speedBonusPerKill: 0.0188
   moveHorizontalDistance: 0.1
   moveVerticalDistance: -0.45
+  stopOnDeathDelay: 0.05
   alienBulletPrototype: {fileID: 9076616786013852415, guid: bb6e358f597c4b148b3ee068482a7244,
     type: 3}
   minCooldown: 0.2
@@ -12727,6 +12728,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1b85dec6720625043b9e5123fe3ac9f3, type: 3}
   - {fileID: 8300000, guid: c17147fa6c2b1f34eb9fbd46040fcfd7, type: 3}
   - {fileID: 8300000, guid: 259adbb77f5196f4eb84f08c1c20b0fc, type: 3}
+  minIntervalBetweenStepSounds: 0.05
 --- !u!4 &2042165417
 Transform:
   m_ObjectHideFlags: 0

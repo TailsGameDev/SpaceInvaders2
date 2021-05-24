@@ -62,7 +62,11 @@ public class GameFSM : MonoBehaviour
                 }
                 break;
             case GameState.CHOOSING_SKINS:
-                if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2"))
+                if (Input.GetButtonDown("Cancel"))
+                {
+                    nextState = GameState.MENU;
+                }
+                else if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2"))
                 {
                     nextState = GameState.STARTING;
                 }
@@ -107,6 +111,7 @@ public class GameFSM : MonoBehaviour
             switch (currentState)
             {
                 case GameState.MENU:
+                    uiSkinsMenu.Disappear();
                     mainMenuAndHud.TurnMenuOn(player.LifesAmount);
                     player.ResetLifes();
                     alienBonusShip.enabled = false;
@@ -130,13 +135,13 @@ public class GameFSM : MonoBehaviour
                     mainMenuAndHud.HideMenu();
                     break;
                 case GameState.ACTION:
-                    aliensGrid.enabled = true;
+                    aliensGrid.StartToMove();
                     player.GetReadyForAction();
 
                     mainMenuAndHud.ShowPlayerLifes(player.LifesAmount);
                     break;
                 case GameState.PLAYER_DEAD:
-                    aliensGrid.enabled = false;
+                    aliensGrid.StopMoving();
                     player.BehaveAsDead();
 
                     currentTimeToWaitFor = Time.time + playerDeathDelay;
