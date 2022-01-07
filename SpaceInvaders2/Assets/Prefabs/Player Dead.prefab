@@ -46,10 +46,12 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -98,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 4698009365181856501}
-  delayToChangeSprite: 0.1
+  delayToChangeSprite: 0.2
   sprites:
   - {fileID: 21300000, guid: 12a318ae83280a243bb8abca8bd75a95, type: 3}
   - {fileID: 21300000, guid: bdbb2a691a7620145890dd449729c896, type: 3}
@@ -128,7 +130,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d63fd468cd39cca45a45bfbb08fba6a6, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0

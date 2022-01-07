@@ -23,12 +23,16 @@ public class BarrierPiece : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        OnTriggerEnter2D(collision.collider);
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "bullet" && other.gameObject.activeInHierarchy)
         {
-            spriteMask.enabled = true;
-            col.enabled = false;
+            OnHit();
 
             // SetActive(false) so other OnTriggerEnters in this frame can check for active, 
             // and then they'll know if the bullet collision was already treated or not.
@@ -36,5 +40,15 @@ public class BarrierPiece : MonoBehaviour
             other.gameObject.SetActive(false);
             Destroy(other.gameObject);
         }
+        else if (other.tag == "damageable")
+        {
+            OnHit();
+        }
+    }
+
+    private void OnHit()
+    {
+        spriteMask.enabled = true;
+        col.enabled = false;
     }
 }

@@ -31,6 +31,8 @@ public class AlienBonusShip : Damageable
 
     [SerializeField]
     private AudioSource audioSource = null;
+    [SerializeField]
+    private PauseableAudio pauseableAudio = null;
 
     private void OnEnable()
     {
@@ -44,7 +46,8 @@ public class AlienBonusShip : Damageable
     {
         spriteRenderer.enabled = enable;
         col.enabled = enable;
-        
+        pauseableAudio.enabled = enable;
+
         if (enable)
         {
             audioSource.Play();

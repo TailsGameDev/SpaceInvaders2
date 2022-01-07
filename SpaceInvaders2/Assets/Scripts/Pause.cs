@@ -5,6 +5,15 @@ public class Pause : MonoBehaviour
     [SerializeField]
     private GameObject pauseSymbol = null;
 
+    private static Pause instance;
+
+    public static Pause Instance { get => instance; }
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void Update()
     {
         if (Input.GetButtonDown("Submit") && Time.timeScale > 0.1f)

@@ -254,7 +254,14 @@ public class AliensGrid : MonoBehaviour
     {
         speedBonus += speedBonusPerKill;
 
-        shootersList.Remove(alien);
+        if (shootersList != null)
+        {
+            shootersList.Remove(alien);
+        }
+        else
+        {
+            Debug.LogError("Shooter list is null", this);
+        }
 
         score.ScorePoints(alien.PointsToScoreOnDeath);
 
