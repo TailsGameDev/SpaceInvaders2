@@ -14,7 +14,7 @@ public class PursuerBullet : Bullet
 
     private void Awake()
     {
-        rb2d.velocity = transform.up * initialSpeed;
+        rb2d.linearVelocity = transform.up * initialSpeed;
     }
 
     protected override void FixedUpdate()
